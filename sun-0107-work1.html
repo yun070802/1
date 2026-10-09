@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>花间清醒梦 - Lucid Bloom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #100c04;
+            --timber: #4e3f29;
+            --ruby: #910708;
+            --red: #de2434;
+            --blush: #dfcace;
+            --blush-deep: #c9aeb4;
+            --paper: #e8d6d9;
+            --font-display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+            --font-cn: 'Noto Serif SC', 'Cormorant Garamond', serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 72px;
+        }
+
+        body {
+            background-color: var(--blush);
+            background-image:
+                radial-gradient(ellipse at 12% 8%, rgba(222, 36, 52, 0.06) 0%, transparent 45%),
+                radial-gradient(ellipse at 88% 70%, rgba(145, 7, 8, 0.05) 0%, transparent 40%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(78, 63, 41, 0.015) 2px,
+                    rgba(78, 63, 41, 0.015) 3px
+                );
+            color: var(--ink);
+            font-family: var(--font-mono);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* —— 顶部导航栏 —— */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            padding: 0 48px;
+            height: 64px;
+            background: rgba(16, 12, 4, 0.94);
+            color: var(--blush);
+            border-bottom: 1px solid rgba(223, 202, 206, 0.18);
+            backdrop-filter: blur(12px);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+        }
+
+        .nav-brand {
+            font-family: var(--font-cn);
+            font-size: 16px;
+            letter-spacing: 0.22em;
+            font-weight: 600;
+            color: #f3e4e7;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .nav-brand:hover {
+            color: #fff;
+        }
+
+        .site-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .site-nav a {
+            position: relative;
+            display: inline-block;
+            padding: 8px 12px;
+            color: var(--blush);
+            transition: color 0.3s ease;
+        }
+
+        .site-nav ul a::after {
+            content: '';
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 4px;
+            width: auto;
+            height: 1px;
+            background: var(--red);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        .site-nav a:hover {
+            color: #fff;
+        }
+
+        .site-nav ul a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-end {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: rgba(223, 202, 206, 0.7);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* —— 全幅主视觉 —— */
+        .hero {
+            position: relative;
+            min-height: calc(100vh - 64px);
+            min-height: calc(100dvh - 64px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: var(--blush);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+            transform: scale(1.06);
+            animation: heroDrift 22s ease-in-out infinite alternate;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(16, 12, 4, 0.35) 0%, transparent 28%, transparent 48%, rgba(16, 12, 4, 0.78) 100%),
+                linear-gradient(90deg, rgba(16, 12, 4, 0.25) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 48px 72px;
+            max-width: 720px;
+            animation: riseIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .hero-brand {
+            font-family: var(--font-cn);
+            font-size: clamp(3.4rem, 9vw, 6.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: 0.12em;
+            color: #f3e4e7;
+            margin-bottom: 14px;
+            text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero-brand span {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 0.28em;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.42em;
+            color: var(--blush);
+            margin-top: 12px;
+            opacity: 0.9;
+        }
+
+        .hero-lead {
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            color: rgba(223, 202, 206, 0.88);
+            max-width: 28em;
+            margin-bottom: 28px;
+            font-family: var(--font-cn);
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 0;
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            color: var(--blush);
+            border-bottom: 1px solid rgba(223, 202, 206, 0.55);
+            transition: color 0.3s, border-color 0.3s, gap 0.3s;
+        }
+
+        .hero-cta:hover {
+            color: #fff;
+            border-color: var(--red);
+            gap: 16px;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            right: 48px;
+            bottom: 72px;
+            z-index: 2;
+            writing-mode: vertical-rl;
+            font-size: 10px;
+            letter-spacing: 0.35em;
+            color: rgba(223, 202, 206, 0.65);
+            animation: softPulse 2.8s ease-in-out infinite;
+        }
+
+        /* —— 通用区块 —— */
+        .section {
+            width: min(1080px, 90%);
+            margin: 0 auto;
+            padding: 88px 0 20px;
+        }
+
+        .section-head {
+            margin-bottom: 40px;
+            animation: riseIn 0.9s ease both;
+        }
+
+        .section-label {
+            display: block;
+            font-size: 10px;
+            letter-spacing: 0.35em;
+            color: var(--timber);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: var(--font-cn);
+            font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+            color: var(--ruby);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 2px;
+            background: var(--red);
+            margin-top: 12px;
+        }
+
+        /* —— STORY —— */
+        .story-container {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .story-visual {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: var(--ink);
+        }
+
+        .story-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .story-visual:hover img {
+            transform: scale(1.05);
+        }
+
+        .story-visual figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 18px 20px;
+            background: linear-gradient(transparent, rgba(16, 12, 4, 0.85));
+            color: var(--blush);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+        }
+
+        .story-text h3 {
+            font-family: var(--font-cn);
+            color: var(--ruby);
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+
+        .story-text p {
+            font-size: 13px;
+            color: var(--ink);
+            margin-bottom: 14px;
+            font-family: var(--font-cn);
+            line-height: 1.9;
+        }
+
+        .story-text p em {
+            font-family: var(--font-display);
+            font-style: italic;
+            color: var(--timber);
+        }
+
+        .palette-row {
+            display: flex;
+            gap: 8px;
+            margin: 28px 0 8px;
+        }
+
+        .swatch {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(16, 12, 4, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .swatch:hover {
+            transform: translateY(-4px);
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.16em;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s, gap 0.3s;
+        }
+
+        .read-more:hover {
+            border-color: var(--red);
+            gap: 14px;
+        }
+
+        /* —— 图鉴（图片主导，弱化卡片感） —— */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .flower-item {
+            cursor: pointer;
+        }
+
+        .flower-item figure {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+            background: var(--ink);
+            margin-bottom: 16px;
+        }
+
+        .flower-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s;
+            filter: saturate(0.92) contrast(1.02);
+        }
+
+        .flower-item:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.05) contrast(1.04);
+        }
+
+        .flower-item figcaption {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 28px 16px 14px;
+            background: linear-gradient(transparent, rgba(16, 12, 4, 0.75));
+            color: var(--blush);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            transform: translateY(6px);
+            opacity: 0.85;
+            transition: transform 0.4s, opacity 0.4s;
+        }
+
+        .flower-item:hover figcaption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .flower-item h4 {
+            font-family: var(--font-cn);
+            color: var(--ruby);
+            font-size: 1.15rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .flower-item .flower-meta {
+            font-size: 10px;
+            color: var(--timber);
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
+        }
+
+        .flower-item .flower-desc {
+            font-family: var(--font-cn);
+            font-size: 12.5px;
+            line-height: 1.85;
+            color: var(--ink);
+            letter-spacing: 0.04em;
+            text-align: left;
+        }
+
+        /* —— 品种 —— */
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .member {
+            text-align: left;
+        }
+
+        .member-frame {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+            margin-bottom: 12px;
+            border: 1px solid rgba(78, 63, 41, 0.35);
+            background: var(--ink);
+        }
+
+        .member-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .member:hover .member-frame img {
+            transform: scale(1.08);
+        }
+
+        .member h4 {
+            font-family: var(--font-cn);
+            color: var(--ruby);
+            font-size: 14px;
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+
+        .member .member-meta {
+            font-size: 9px;
+            color: var(--timber);
+            letter-spacing: 0.06em;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .member .member-desc {
+            font-family: var(--font-cn);
+            font-size: 11.5px;
+            line-height: 1.8;
+            color: var(--ink);
+            letter-spacing: 0.03em;
+        }
+
+        /* —— 花间文选 —— */
+        .verse-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .verse-card {
+            background: rgba(255, 252, 250, 0.55);
+            border: 1px solid rgba(78, 63, 41, 0.28);
+            padding: 28px 26px 24px;
+            position: relative;
+        }
+
+        .verse-card::before {
+            content: '「';
+            font-family: var(--font-cn);
+            font-size: 36px;
+            color: var(--ruby);
+            line-height: 1;
+            opacity: 0.35;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .verse-card blockquote {
+            font-family: var(--font-cn);
+            font-size: 14.5px;
+            line-height: 2;
+            color: var(--ink);
+            letter-spacing: 0.06em;
+            margin-bottom: 18px;
+        }
+
+        .verse-source {
+            text-align: right;
+            color: var(--timber);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            font-family: var(--font-cn);
+        }
+
+        .verse-source cite {
+            font-style: normal;
+            color: var(--ruby);
+        }
+
+        /* —— 底部互动 —— */
+        .closing {
+            position: relative;
+            margin-top: 96px;
+            min-height: 320px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        .closing-visual {
+            position: relative;
+            min-height: 320px;
+        }
+
+        .closing-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .closing-copy {
+            background: var(--ink);
+            color: var(--blush);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 56px 48px;
+        }
+
+        .closing-copy h2 {
+            font-family: var(--font-cn);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            line-height: 1.45;
+            letter-spacing: 0.18em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .closing-copy h2 span {
+            display: block;
+            color: var(--red);
+        }
+
+        .closing-copy p {
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            opacity: 0.75;
+            max-width: 22em;
+            font-family: var(--font-cn);
+            line-height: 1.9;
+        }
+
+        /* —— 页脚 —— */
+        footer {
+            text-align: center;
+            padding: 48px 24px;
+            background-color: var(--ink);
+            color: var(--blush);
+            font-size: 11px;
+            letter-spacing: 0.08em;
+        }
+
+        footer .socials {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        footer .socials a {
+            color: var(--red);
+            letter-spacing: 0.2em;
+            font-size: 10px;
+            transition: opacity 0.3s;
+        }
+
+        footer .socials a:hover {
+            opacity: 0.65;
+        }
+
+        /* —— 动效 —— */
+        @keyframes heroDrift {
+            from { transform: scale(1.06) translate(0, 0); }
+            to { transform: scale(1.12) translate(-1.5%, -1%); }
+        }
+
+        @keyframes riseIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes softPulse {
+            0%, 100% { opacity: 0.45; }
+            50% { opacity: 0.9; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* —— 响应式 —— */
+        @media (max-width: 900px) {
+            .site-nav {
+                height: auto;
+                min-height: 56px;
+                padding: 12px 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                row-gap: 8px;
+            }
+
+            .site-nav ul {
+                order: 3;
+                flex: 1 1 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 4px 6px;
+            }
+
+            .nav-end {
+                display: none;
+            }
+
+            .hero-content {
+                padding: 0 24px 56px;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+
+            .story-container {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .story-visual {
+                aspect-ratio: 16 / 11;
+            }
+
+            .album-grid {
+                grid-template-columns: 1fr;
+                max-width: 420px;
+                margin: 0 auto;
+            }
+
+            .member-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .verse-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .closing {
+                grid-template-columns: 1fr;
+            }
+
+            .closing-visual {
+                min-height: 220px;
+            }
+
+            .closing-copy {
+                padding: 40px 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .member-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="site-nav" aria-label="页面导航">
+        <a class="nav-brand" href="#top">花间清醒梦</a>
+        <ul>
+            <li><a href="#top">首页 HOME</a></li>
+            <li><a href="#story">花语 STORY</a></li>
+            <li><a href="#album">图鉴 ALBUM</a></li>
+            <li><a href="#member">品种 MEMBER</a></li>
+            <li><a href="#verse">文选 VERSE</a></li>
+        </ul>
+        <span class="nav-end">LUCID BLOOM</span>
+    </nav>
+
+    <!-- 全幅主视觉：品牌为第一视觉信号 -->
+    <header class="hero" id="top">
+        <div class="hero-bg" aria-hidden="true">
+            <img
+                src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                alt=""
+                width="1920"
+                height="1280"
+            >
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-brand">
+                花间清醒梦
+                <span>Lucid Bloom</span>
+            </h1>
+            <p class="hero-lead">海棠、蜀葵与复古玫瑰——在花间一场清醒的色彩之梦。</p>
+            <a class="hero-cta" href="#story">进入花语 →</a>
+        </div>
+        <div class="hero-scroll" aria-hidden="true">SCROLL</div>
+    </header>
+
+    <!-- STORY -->
+    <section class="section" id="story">
+        <div class="section-head reveal">
+            <span class="section-label">Story</span>
+            <h2 class="section-title">花语</h2>
+        </div>
+        <div class="story-container reveal">
+            <figure class="story-visual">
+                <img
+                    src="https://images.pexels.com/photos/1128797/pexels-photo-1128797.jpeg?auto=compress&cs=tinysrgb&w=900"
+                    alt="庭院中盛放的红色玫瑰"
+                    width="900"
+                    height="1125"
+                    loading="lazy"
+                >
+                <figcaption>海棠 · 蜀葵 · 玫瑰</figcaption>
+            </figure>
+            <div class="story-text">
+                <h3>关于花卉的色彩美学</h3>
+                <p>
+                    这组配色灵感来源于古典庭院中的花卉。深沉的黑褐色（<em>Faded Ink</em>）与老木色（<em>Old Timber</em>）构成了枝叶与光影的基底，如同褪色的时光。
+                </p>
+                <p>
+                    古董红宝石（<em>Antique Ruby</em>）与鲜红（<em>#de2434</em>）的碰撞，为海棠与玫瑰注入强烈的生命力；丝绸粉（<em>Silk Blush</em>）如蜀葵花瓣上的一抹轻晕，让整套设计在复古厚重中多出一丝轻盈。
+                </p>
+                <div class="palette-row" aria-label="配色预览">
+                    <div class="swatch" style="background:var(--ink)" title="Faded Ink"></div>
+                    <div class="swatch" style="background:var(--timber)" title="Old Timber"></div>
+                    <div class="swatch" style="background:var(--ruby)" title="Antique Ruby"></div>
+                    <div class="swatch" style="background:var(--red)" title="Vibrant Red"></div>
+                    <div class="swatch" style="background:var(--blush)" title="Silk Blush"></div>
+                </div>
+                <a class="read-more" href="#album">继续翻阅图鉴 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 图鉴 -->
+    <section class="section" id="album">
+        <div class="section-head reveal">
+            <span class="section-label">Flowers</span>
+            <h2 class="section-title">图鉴</h2>
+        </div>
+        <div class="album-grid">
+            <article class="flower-item reveal">
+                <figure>
+                    <img
+                        src="https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800"
+                        alt="垂丝海棠般的粉白花簇"
+                        width="800"
+                        height="1067"
+                        loading="lazy"
+                    >
+                    <figcaption>SILK BLUSH</figcaption>
+                </figure>
+                <h4>垂丝海棠</h4>
+                <p class="flower-meta">Malus halliana · 蔷薇科</p>
+                <p class="flower-desc">小乔木，花梗细长下垂，花瓣粉白如丝。江南庭院常见春花，盛开时成簇低垂，有「花贵妃」之称，常被写入海棠诗社与夜烛照红妆的典故。</p>
+            </article>
+            <article class="flower-item reveal">
+                <figure>
+                    <img
+                        src="https://images.pexels.com/photos/1408221/pexels-photo-1408221.jpeg?auto=compress&cs=tinysrgb&w=800"
+                        alt="蜀葵般竖立绽放的花园花卉"
+                        width="800"
+                        height="1067"
+                        loading="lazy"
+                    >
+                    <figcaption>OLD TIMBER</figcaption>
+                </figure>
+                <h4>蜀葵</h4>
+                <p class="flower-meta">Alcea rosea · 锦葵科</p>
+                <p class="flower-desc">茎干直立如戟，夏季自下而上陆续开放。花色自粉至深红，多栽于墙根篱边，是民间院落里最常见的「一丈红」，带着木本庭园的厚重与朴素。</p>
+            </article>
+            <article class="flower-item reveal">
+                <figure>
+                    <img
+                        src="https://images.pexels.com/photos/736230/pexels-photo-736230.jpeg?auto=compress&cs=tinysrgb&w=800"
+                        alt="深色背景中的复古红玫瑰"
+                        width="800"
+                        height="1067"
+                        loading="lazy"
+                    >
+                    <figcaption>ANTIQUE RUBY</figcaption>
+                </figure>
+                <h4>复古玫瑰</h4>
+                <p class="flower-meta">Old Garden Rose · 蔷薇科</p>
+                <p class="flower-desc">泛指现代月季出现以前的古老品系，花型层层叠叠，香气浓郁。色泽偏暗宝石红，耐看而不喧哗，适合作为「花间清醒梦」里时间停驻的那一瓣。</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- 品种 -->
+    <section class="section" id="member">
+        <div class="section-head reveal">
+            <span class="section-label">Varieties</span>
+            <h2 class="section-title">品种</h2>
+        </div>
+        <div class="member-grid">
+            <article class="member reveal">
+                <div class="member-frame">
+                    <img
+                        src="https://images.unsplash.com/photo-1582794543139-8ac9cb0f7b11?auto=format&fit=crop&w=500&q=80"
+                        alt="近乎墨色的深红玫瑰"
+                        width="500"
+                        height="667"
+                        loading="lazy"
+                    >
+                </div>
+                <h4>黑巴克玫瑰</h4>
+                <p class="member-meta">Black Baccara</p>
+                <p class="member-desc">杂交茶香月季，花瓣近墨红，侧光下才显一层暗红绒感。常作切花，气质冷而浓，像夜色里尚未说完的句子。</p>
+            </article>
+            <article class="member reveal">
+                <div class="member-frame">
+                    <img
+                        src="https://images.pexels.com/photos/207518/pexels-photo-207518.jpeg?auto=compress&cs=tinysrgb&w=500"
+                        alt="木质感枝干与绿叶灌木"
+                        width="500"
+                        height="667"
+                        loading="lazy"
+                    >
+                </div>
+                <h4>老式灌木</h4>
+                <p class="member-meta">Old Shrub</p>
+                <p class="member-desc">枝干苍劲、叶片厚实的庭园灌木。花期之外仍以绿意撑起院落骨架，是海棠与玫瑰背后那一层「老木」底色。</p>
+            </article>
+            <article class="member reveal">
+                <div class="member-frame">
+                    <img
+                        src="https://images.pexels.com/photos/1022187/pexels-photo-1022187.jpeg?auto=compress&cs=tinysrgb&w=500"
+                        alt="古董红宝石色调的玫瑰"
+                        width="500"
+                        height="667"
+                        loading="lazy"
+                    >
+                </div>
+                <h4>古董红玫瑰</h4>
+                <p class="member-meta">Antique Ruby</p>
+                <p class="member-desc">花色如陈年红宝石，饱和却不刺目。瓣缘常带更深的暗晕，适合近观：一朵花里能同时看见火与影。</p>
+            </article>
+            <article class="member reveal">
+                <div class="member-frame">
+                    <img
+                        src="https://images.pexels.com/photos/1166869/pexels-photo-1166869.jpeg?auto=compress&cs=tinysrgb&w=500"
+                        alt="鲜艳的弗拉门戈红玫瑰"
+                        width="500"
+                        height="667"
+                        loading="lazy"
+                    >
+                </div>
+                <h4>弗拉门戈</h4>
+                <p class="member-meta">Flamenco</p>
+                <p class="member-desc">鲜红外翻、姿态张扬，开得像一场短而热烈的舞。在整组花卉里最醒目，也最接近生命力本身的那种红。</p>
+            </article>
+            <article class="member reveal">
+                <div class="member-frame">
+                    <img
+                        src="https://images.pexels.com/photos/250591/pexels-photo-250591.jpeg?auto=compress&cs=tinysrgb&w=500"
+                        alt="丝绸粉色调的柔和花卉"
+                        width="500"
+                        height="667"
+                        loading="lazy"
+                    >
+                </div>
+                <h4>垂丝海棠</h4>
+                <p class="member-meta">Silk Blush</p>
+                <p class="member-desc">花色如薄绸上的一抹胭脂，雨后更显「绿肥红瘦」。细梗悬花，走在风里会轻轻晃，像尚未醒来的梦。</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- 花间文选 -->
+    <section class="section" id="verse">
+        <div class="section-head reveal">
+            <span class="section-label">Verse</span>
+            <h2 class="section-title">文选</h2>
+        </div>
+        <div class="verse-grid">
+            <article class="verse-card reveal">
+                <blockquote>
+                    东风袅袅泛崇光，香雾空蒙月转廊。<br>
+                    只恐夜深花睡去，故烧高烛照红妆。
+                </blockquote>
+                <p class="verse-source">— <cite>苏轼《海棠》</cite></p>
+            </article>
+            <article class="verse-card reveal">
+                <blockquote>
+                    试问卷帘人，却道海棠依旧。<br>
+                    知否，知否？应是绿肥红瘦。
+                </blockquote>
+                <p class="verse-source">— <cite>李清照《如梦令》</cite></p>
+            </article>
+            <article class="verse-card reveal">
+                <blockquote>
+                    花谢花飞花满天，红消香断有谁怜？<br>
+                    游丝软系飘春榭，落絮轻沾扑绣帘。
+                </blockquote>
+                <p class="verse-source">— <cite>曹雪芹《红楼梦·葬花吟》</cite></p>
+            </article>
+            <article class="verse-card reveal">
+                <blockquote>
+                    落红不是无情物，<br>
+                    化作春泥更护花。
+                </blockquote>
+                <p class="verse-source">— <cite>龚自珍《己亥杂诗》</cite></p>
+            </article>
+        </div>
+    </section>
+
+    <!-- 收束 -->
+    <section class="closing">
+        <div class="closing-visual">
+            <img
+                src="https://images.pexels.com/photos/74512/pexels-photo-74512.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                alt="静赏花期：一枝红玫瑰特写"
+                width="1200"
+                height="800"
+                loading="lazy"
+            >
+        </div>
+        <div class="closing-copy">
+            <h2>
+                寻芳
+                <span>拾色</span>
+                静赏花期
+            </h2>
+            <p>在清醒梦里辨认颜色，在颜色里记住花期。愿每一次翻页，都有一瓣落进心里。</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 花间清醒梦 Lucid Bloom. All rights reserved.</p>
+        <div class="socials">
+            <a href="#">INS</a>
+            <a href="#">WEB</a>
+            <a href="#">MAIL</a>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var nodes = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                nodes.forEach(function (el) { el.classList.add('visible'); });
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+            nodes.forEach(function (el) { io.observe(el); });
+        })();
+    </script>
+</body>
+</html>
